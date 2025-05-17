@@ -115,6 +115,32 @@
       margin-top: 3em;
     }
   </style>
+
+  <!-- ✅ Load EmailJS v4 SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init({
+        publicKey: "keEkiBQiWGQXotYFx"
+      });
+    })();
+  </script>
+
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById("contact-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        emailjs.sendForm('service_xt86x49', 'template_tplscy8', this)
+          .then(() => {
+            alert('Email sent successfully!');
+            this.reset();
+          }, (error) => {
+            alert('Failed to send email:\n' + JSON.stringify(error));
+          });
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -140,12 +166,13 @@
     <a href="https://wa.me/919400216449?text=Hi%2C%20I%20would%20like%20to%20book%20a%20lawn%20service%20appointment." target="_blank">📱 Book via WhatsApp</a>
   </div>
 
+  <!-- ✅ Email form -->
   <form id="contact-form">
     <h3>Book Appointment via Email</h3>
-    <input type="text" id="name" placeholder="Your Name" required />
-    <input type="email" id="email" placeholder="Your Email" required />
-    <input type="tel" id="phone" placeholder="Your Phone Number" required />
-    <textarea id="message" placeholder="What service do you need?" required></textarea>
+    <input type="text" name="from_name" placeholder="Your Name" required />
+    <input type="email" name="from_email" placeholder="Your Email" required />
+    <input type="tel" name="phone" placeholder="Your Phone Number" required />
+    <textarea name="message" placeholder="What service do you need?" required></textarea>
     <button type="submit">Send Email</button>
   </form>
 
@@ -163,34 +190,6 @@
 <footer>
   © 2025 GreenEdge Lawn Services
 </footer>
-
-<!-- EmailJS SDK -->
-<script src="https://cdn.emailjs.com/sdk/3.12.0/email.min.js"></script>
-
-<script>
-  // Initialize EmailJS with your public key
-  emailjs.init("keEkiBQiWGQXotYFx");
-
-  // Handle form submission
-  document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const templateParams = {
-      from_name: document.getElementById('name').value,
-      from_email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      message: document.getElementById('message').value
-    };
-
-    emailjs.send('service_xt86x49', 'template_tplscy8', templateParams)
-      .then(function(response) {
-        alert('Email sent successfully!');
-        document.getElementById('contact-form').reset();
-      }, function(error) {
-        alert('FAILED to send email: ' + JSON.stringify(error));
-      });
-  });
-</script>
 
 </body>
 </html>
