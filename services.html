@@ -107,6 +107,12 @@
       border: 1px solid #ccc;
     }
 
+    form label {
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      display: block;
+    }
+
     footer {
       text-align: center;
       background: #2e7d32;
@@ -115,14 +121,37 @@
       margin-top: 3em;
     }
   </style>
+
+  <!-- ✅ EmailJS SDK (v3) -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      emailjs.init("keEkiBQiWGQXotYFx");
+
+      const form = document.getElementById("contact-form");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        emailjs.sendForm("service_xt86x49", "template_tplscy8", this)
+          .then(function () {
+            alert("✅ Email sent successfully!");
+            form.reset();
+          }, function (error) {
+            console.error("❌ Email send failed:", error);
+            alert("❌ Failed to send email.\n" + JSON.stringify(error));
+          });
+      });
+    });
+  </script>
 </head>
 <body>
 
 <header>
   <h1>GreenEdge Lawn Services</h1>
   <nav>
-    <a href="#">Home</a>
-    <a href="#">Services</a>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
   </nav>
 </header>
 
@@ -142,10 +171,19 @@
 
   <form id="contact-form">
     <h3>Book Appointment via Email</h3>
-    <input type="text" name="from_name" id="name" placeholder="Your Name" required />
-    <input type="email" name="from_email" id="email" placeholder="Your Email" required />
-    <input type="tel" name="phone" id="phone" placeholder="Your Phone Number" required />
-    <textarea name="message" id="message" placeholder="What service do you need?" required></textarea>
+
+    <label for="from_name">Name</label>
+    <input type="text" id="from_name" name="from_name" required>
+
+    <label for="from_email">Email</label>
+    <input type="email" id="from_email" name="from_email" required>
+
+    <label for="phone">Phone</label>
+    <input type="text" id="phone" name="phone">
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
     <button type="submit">Send Email</button>
   </form>
 
@@ -163,25 +201,6 @@
 <footer>
   © 2025 GreenEdge Lawn Services
 </footer>
-
-<!-- EmailJS SDK -->
-<script src="https://cdn.emailjs.com/sdk/3.12.0/email.min.js"></script>
-
-<script>
-  emailjs.init("keEkiBQiWGQXotYFx");
-
-  document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    emailjs.sendForm('service_xt86x49', 'template_tplscy8', this)
-      .then(function(response) {
-        alert('✅ Email sent successfully!');
-        document.getElementById('contact-form').reset();
-      }, function(error) {
-        alert('❌ Failed to send email:\n' + JSON.stringify(error));
-      });
-  });
-</script>
 
 </body>
 </html>
