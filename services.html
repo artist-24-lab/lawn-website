@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lawn Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GreenEdge Lawn Services offers professional lawn mowing, hedge trimming, and garden cleanup in Trivandrum, Kerala. Book now!" />
+  <title>GreenEdge Lawn Services</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
       margin: 0;
@@ -13,7 +15,7 @@
     }
 
     header {
-      background-color: #2e7d32;
+      background-color: #388e3c; /* Lightened for better contrast */
       color: white;
       padding: 1em 2em;
       display: flex;
@@ -23,7 +25,7 @@
 
     header h1 {
       margin: 0;
-      font-size: 1.5em;
+      font-size: clamp(1.2rem, 3vw, 1.5rem); /* Responsive font size */
     }
 
     nav a {
@@ -31,6 +33,12 @@
       margin-left: 20px;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    nav a:hover, nav a:focus {
+      text-decoration: underline;
+      outline: 2px solid #fff;
+      outline-offset: 2px;
     }
 
     .container {
@@ -41,7 +49,7 @@
 
     .services {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); /* Adjusted for small screens */
       gap: 1.5em;
     }
 
@@ -59,7 +67,7 @@
 
     .card h3 {
       margin-top: 0;
-      color: #2e7d32;
+      color: #388e3c;
     }
 
     .buttons {
@@ -69,7 +77,7 @@
     }
 
     .buttons a, .buttons button {
-      background: #2e7d32;
+      background: #388e3c;
       color: white;
       border: none;
       padding: 0.8em 1.2em;
@@ -77,6 +85,12 @@
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .buttons a:hover, .buttons a:focus, .buttons button:hover, .buttons button:focus {
+      background: #2e7d32;
+      outline: 2px solid #fff;
+      outline-offset: 2px;
     }
 
     .map {
@@ -105,6 +119,7 @@
       margin-bottom: 1em;
       border-radius: 8px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
     }
 
     form label {
@@ -115,93 +130,134 @@
 
     footer {
       text-align: center;
-      background: #2e7d32;
+      background: #388e3c;
       color: white;
       padding: 1em;
       margin-top: 3em;
     }
   </style>
+</head>
+<body>
+  <header role="banner">
+    <h1>GreenEdge Lawn Services</h1>
+    <nav role="navigation">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+    </nav>
+  </header>
 
-  <!-- ✅ EmailJS SDK (v3) -->
+  <div class="container" role="main">
+    <h2>Our Lawn Services</h2>
+    <div class="services">
+      <div class="card"><h3>Lawn Mowing</h3><p>Neat, clean, and even grass cutting every time.</p></div>
+      <div class="card"><h3>Hedge Trimming</h3><p>Shape your hedges to perfection.</p></div>
+      <div class="card"><h3>Garden Cleanup</h3><p>Full yard cleanup for seasonal or one-time needs.</p></div>
+      <div class="card"><h3>Fertilizing</h3><p>Boost your lawn’s health with expert fertilizer service.</p></div>
+      <div class="card"><h3>Weekly Maintenance</h3><p>Keep your lawn looking its best all year round.</p></div>
+    </div>
 
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <div class="buttons">
+      <a href="#" onclick="openWhatsApp()">📱 Book via WhatsApp</a>
+    </div>
+
+    <form id="contact-form">
+      <fieldset>
+        <legend>Book Appointment via Email</legend>
+
+        <label for="user_name">Name</label>
+        <input type="text" id="user_name" name="user_name" required>
+
+        <label for="user_email">Email</label>
+        <input type="email" id="user_email" name="user_email" required>
+
+        <label for="user_phone">Phone</label>
+        <input type="text" id="user_phone" name="user_phone">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Email</button>
+      </fieldset>
+    </form>
+
+    <div class="map">
+      <h3>Our Service Area</h3>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3931.410543041425!2d76.95181227590642!3d8.524139796026556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bec0f11b35df%3A0xa7fa958a2616b04!2sTrivandrum%2C%20Kerala!5e0!3m2!1sen!2sin!4v1715942442536!5m2!1sen!2sin"
+        title="GreenEdge Lawn Services Location in Trivandrum, Kerala"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <footer role="contentinfo">
+    © <span id="year"></span> GreenEdge Lawn Services
+  </footer>
+
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js" defer></script>
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
-      emailjs.init("keEkiBQiWGQXotYFx");
+      // Set dynamic year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
 
+      // Initialize EmailJS
+      emailjs.init("keEkiBQiWGQXotYFx");
       const form = document.getElementById("contact-form");
 
+      // Form submission handler
       form.addEventListener("submit", function (e) {
         e.preventDefault();
+        const phone = form.querySelector("#user_phone").value;
+        const name = form.querySelector("#user_name").value;
+        const email = form.querySelector("#user_email").value;
 
+        // Validate inputs
+        if (name.length < 2) {
+          alert("Please enter a valid name (at least 2 characters).");
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+        if (phone && !/^\+?\d{10,15}$/.test(phone)) {
+          alert("Please enter a valid phone number (10-15 digits).");
+          return;
+        }
+
+        // Show loading state
+        const button = form.querySelector("button");
+        button.disabled = true;
+        button.textContent = "Sending...";
+
+        // Log form data for debugging
+        const formData = new FormData(this);
+        console.log("Form Data:", Object.fromEntries(formData));
+
+        // Send form via EmailJS
         emailjs.sendForm("service_xt86x49", "template_tplscy8", this)
-          .then(function () {
+          .then(() => {
             alert("✅ Email sent successfully!");
             form.reset();
-          }, function (error) {
-            console.error("❌ Email send failed:", error);
-            alert("❌ Failed to send email.\n" + JSON.stringify(error));
+            button.disabled = false;
+            button.textContent = "Send Email";
+          })
+          .catch((error) => {
+            console.error("Email send failed:", error);
+            alert("Sorry, we couldn't send your email. Please try again later.");
+            button.disabled = false;
+            button.textContent = "Send Email";
           });
       });
     });
+
+    // WhatsApp link handler
+    function openWhatsApp() {
+      const message = encodeURIComponent("Hi, I would like to book a lawn service appointment.");
+      window.open(`https://wa.me/919400216449?text=${message}`, "_blank");
+    }
   </script>
-</head>
-<body>
-
-<header>
-  <h1>GreenEdge Lawn Services</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-  </nav>
-</header>
-
-<div class="container">
-  <h2>Our Lawn Services</h2>
-  <div class="services">
-    <div class="card"><h3>Lawn Mowing</h3><p>Neat, clean, and even grass cutting every time.</p></div>
-    <div class="card"><h3>Hedge Trimming</h3><p>Shape your hedges to perfection.</p></div>
-    <div class="card"><h3>Garden Cleanup</h3><p>Full yard cleanup for seasonal or one-time needs.</p></div>
-    <div class="card"><h3>Fertilizing</h3><p>Boost your lawn’s health with expert fertilizer service.</p></div>
-    <div class="card"><h3>Weekly Maintenance</h3><p>Keep your lawn looking its best all year round.</p></div>
-  </div>
-
-  <div class="buttons">
-    <a href="https://wa.me/919400216449?text=Hi%2C%20I%20would%20like%20to%20book%20a%20lawn%20service%20appointment." target="_blank">📱 Book via WhatsApp</a>
-  </div>
-
-  <form id="contact-form">
-    <h3>Book Appointment via Email</h3>
-
-    <label for="from_name">Name</label>
-    <input type="text" id="from_name" name="from_name" required>
-
-    <label for="from_email">Email</label>
-    <input type="email" id="from_email" name="from_email" required>
-
-    <label for="phone">Phone</label>
-    <input type="text" id="phone" name="phone">
-
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
-
-    <button type="submit">Send Email</button>
-  </form>
-
-  <div class="map">
-    <h3>Our Service Area</h3>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3931.410543041425!2d76.95181227590642!3d8.524139796026556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bec0f11b35df%3A0xa7fa958a2616b04!2sTrivandrum%2C%20Kerala!5e0!3m2!1sen!2sin!4v1715942442536!5m2!1sen!2sin"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-</div>
-
-<footer>
-  © 2025 GreenEdge Lawn Services
-</footer>
-
 </body>
 </html>
