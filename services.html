@@ -105,24 +105,6 @@
       margin-bottom: 1em;
       border-radius: 8px;
       border: 1px solid #ccc;
-      font-size: 1em;
-      box-sizing: border-box;
-    }
-
-    form button {
-      background: #2e7d32;
-      color: white;
-      border: none;
-      padding: 0.8em 1.2em;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
-    }
-
-    form button:hover {
-      background-color: #27632a;
     }
 
     footer {
@@ -182,34 +164,30 @@
   © 2025 GreenEdge Lawn Services
 </footer>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("keEkiBQiWGQXotYFx"); // Your Public Key
-  })();
+<!-- EmailJS SDK -->
+<script src="https://cdn.emailjs.com/sdk/3.12.0/email.min.js"></script>
 
+<script>
+  // Initialize EmailJS with your public key
+  emailjs.init("keEkiBQiWGQXotYFx");
+
+  // Handle form submission
   document.getElementById('contact-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const message = document.getElementById('message').value;
-
     const templateParams = {
-      from_name: name,
-      from_email: email,
-      from_phone: phone,
-      message: message,
+      from_name: document.getElementById('name').value,
+      from_email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      message: document.getElementById('message').value
     };
 
     emailjs.send('service_xt86x49', 'template_tplscy8', templateParams)
       .then(function(response) {
-        alert('Your appointment request has been sent successfully! We will contact you soon.');
+        alert('Email sent successfully!');
         document.getElementById('contact-form').reset();
       }, function(error) {
-        alert('Oops... Something went wrong. Please try again later.');
-        console.error('EmailJS error:', error);
+        alert('FAILED to send email: ' + JSON.stringify(error));
       });
   });
 </script>
